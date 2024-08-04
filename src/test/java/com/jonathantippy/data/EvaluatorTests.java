@@ -14,6 +14,6 @@ class EvaluatorTests {
 	@Test
 	@DisplayName("1 + 1 = 2")
 	void addsTwoNumbers() {
-		assertEquals(2, Evaluator.add("1+1"), "\"1+1\" should equal 2");
+		assertEquals(2, Evaluator.evaluate("1+1"), "\"1+1\" should equal 2");
 	}
 }
