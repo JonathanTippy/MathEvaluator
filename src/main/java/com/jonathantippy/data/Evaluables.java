@@ -41,7 +41,24 @@ class Plus extends BinaryEvaluable {
     }
 
     public int evaluate() {
+        //System.out.println("Evaluate: Adding: " + leftTerm.evaluate() + " + " + rightTerm.evaluate());
         return leftTerm.evaluate() + rightTerm.evaluate();
+    }
+
+}
+
+class Minus extends BinaryEvaluable {
+
+    public Evaluable leftTerm;
+    public Evaluable rightTerm;
+
+    public Minus(Evaluable leftTerm, Evaluable rightTerm) {
+        this.leftTerm = leftTerm; this.rightTerm = rightTerm;
+    }
+
+    public int evaluate() {
+        //System.out.println("Evaluate: Subtracting: " + leftTerm.evaluate() + " - " + rightTerm.evaluate());
+        return leftTerm.evaluate() - rightTerm.evaluate();
     }
 
 }
@@ -57,6 +74,21 @@ class Times extends BinaryEvaluable {
 
     public int evaluate() {
         return leftTerm.evaluate() * rightTerm.evaluate();
+    }
+
+}
+
+class Divide extends BinaryEvaluable {
+
+    public Evaluable leftTerm;
+    public Evaluable rightTerm;
+
+    public Divide(Evaluable leftTerm, Evaluable rightTerm) {
+        this.leftTerm = leftTerm; this.rightTerm = rightTerm;
+    }
+
+    public int evaluate() {
+        return leftTerm.evaluate() / rightTerm.evaluate();
     }
 
 }
