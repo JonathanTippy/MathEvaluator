@@ -1,45 +1,45 @@
 package com.jonathantippy.data;
 
-public abstract class Evaluable {
-    public int Evaluate() {}
+abstract class Evaluable {
+    public abstract int evaluate();
 }
 
-public abstract class UnaryEvaluable : Evaluable {
-    public int Evaluate() {}
+abstract class UnaryEvaluable extends Evaluable {
+    public abstract int evaluate();
     public Evaluable term;
 }
 
-public abstract class BinaryEvaluable : Evaluable {
-    public int Evaluate() {}
+abstract class BinaryEvaluable extends Evaluable {
+    public abstract int evaluate();
     public Evaluable leftTerm;
     public Evaluable rightTerm;
 }
 
-public class Value : Evaluable {
+class Value extends Evaluable {
 
     public int value;
 
-    public Value(value) {
+    public Value(int value) {
         this.value = value;
     }
 
-    public int Evaluate() {
+    public int evaluate() {
         return value;
     }
 
 }
 
-public class Plus : BinaryEvaluable {
+class Plus extends BinaryEvaluable {
 
     public Evaluable leftTerm;
     public Evaluable rightTerm;
 
-    public Plus(leftTerm, rightTerm) {
+    public Plus(Evaluable leftTerm, Evaluable rightTerm) {
         this.leftTerm = leftTerm; this.rightTerm = rightTerm;
     }
 
-    public int Evaluate() {
-        return leftTerm.Evaluate() + rightTerm.Evaluate();
+    public int evaluate() {
+        return leftTerm.evaluate() + rightTerm.evaluate();
     }
 
 }
