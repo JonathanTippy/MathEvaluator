@@ -6,11 +6,13 @@ abstract class Evaluable {
 
 abstract class UnaryEvaluable extends Evaluable {
     public abstract int evaluate();
+
     public Evaluable term;
 }
 
 abstract class BinaryEvaluable extends Evaluable {
     public abstract int evaluate();
+
     public Evaluable leftTerm;
     public Evaluable rightTerm;
 }
@@ -40,6 +42,21 @@ class Plus extends BinaryEvaluable {
 
     public int evaluate() {
         return leftTerm.evaluate() + rightTerm.evaluate();
+    }
+
+}
+
+class Times extends BinaryEvaluable {
+
+    public Evaluable leftTerm;
+    public Evaluable rightTerm;
+
+    public Times(Evaluable leftTerm, Evaluable rightTerm) {
+        this.leftTerm = leftTerm; this.rightTerm = rightTerm;
+    }
+
+    public int evaluate() {
+        return leftTerm.evaluate() * rightTerm.evaluate();
     }
 
 }
