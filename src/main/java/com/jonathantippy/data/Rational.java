@@ -1,6 +1,8 @@
 package com.jonathantippy.data;
 
+
 class Rational {
+
     public long numerator;
     public long denomenator;
 
@@ -29,25 +31,53 @@ class Rational {
         }
     }
 
-    public multiply(Rational leftTerm, Rational rightTerm) {
-        Rational returned = new Rational();
-        returned.numerator = leftTerm.numerator * rightTerm.numerator;
-        returned.denomenator = leftTerm.denomenator * rightTerm.denomenator;
-        return returned;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {return true;}
+        if (obj == null || getClass() != obj.getClass()) {return false;}
+        Rational rat = (Rational) obj;
+        return (numerator * rat.denomenator == rat.numerator * denomenator);
     }
 
-    public add(Rational leftTerm, Rational rightTerm) {
-        Rational returned = new Rational();
-        returned.denomenator = leftTerm.denomenator * rightTerm.denomenator;
-        returned.numerator = leftTerm.numerator * rightTerm.denomenator 
-        + rightTerm.numerator * leftTerm.denomenator;
-    }
-
-    public divide(Rational leftTerm, Rational rightTerm) {
-        Rational returned = new Rational();
-        returned.denomenator = 
+    @Override
+    public String toString() {
+        return numerator + "/" + denomenator;
     }
 
 
 
+    public static Rational multiply(Rational leftTerm, Rational rightTerm) {
+        return new Rational(
+            leftTerm.numerator * rightTerm.numerator
+            , leftTerm.denomenator * rightTerm.denomenator
+        );
+    }
+
+    public static Rational divide(Rational leftTerm, Rational rightTerm) throws ArithmeticException {
+        
+        if (rightTerm.numerator != 0) {
+            return new Rational(
+                leftTerm.numerator * rightTerm.denomenator
+                , leftTerm.denomenator * rightTerm.numerator
+            );
+        } else {
+            throw new ArithmeticException("Exception: Cannot divide by zero because it is undefined");
+        }
+    }
+
+    public static Rational add(Rational leftTerm, Rational rightTerm) {
+        return new Rational(
+            leftTerm.numerator * rightTerm.denomenator 
+        + rightTerm.numerator * leftTerm.denomenator
+        , leftTerm.denomenator * rightTerm.denomenator
+        );
+    }
+
+    public static Rational subtract(Rational leftTerm, Rational rightTerm) {
+        return new Rational(
+            leftTerm.numerator * rightTerm.denomenator 
+        - rightTerm.numerator * leftTerm.denomenator
+        , leftTerm.denomenator * rightTerm.denomenator
+        );
+    }
 }

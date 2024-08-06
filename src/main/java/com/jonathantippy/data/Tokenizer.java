@@ -36,7 +36,7 @@ public class Tokenizer {
             }
             
         } else {
-            return new Value(Integer.parseInt(expression));
+            return new Value(new Rational(expression));
         }
 
     }
