@@ -11,6 +11,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+		<javafx.version>21</javafx.version>
+    	<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
 	</properties>
 
 	<dependencyManagement>
@@ -31,6 +33,16 @@
 			<artifactId>junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+      		<groupId>org.openjfx</groupId>
+      		<artifactId>javafx-controls</artifactId>
+      		<version>${javafx.version}</version>
+    	</dependency>
+		<dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -52,6 +64,15 @@
                     </execution>
                 </executions>
             </plugin>
+			 <plugin>
+        		<groupId>org.openjfx</groupId>
+        		<artifactId>javafx-maven-plugin</artifactId>
+        		<version>${javafx.maven.plugin.version}</version>
+        		<configuration>
+          			<mainClass>com.jonathantippy.Main</mainClass>
+        		</configuration>
+      		</plugin>
+
 		</plugins>
 	</build>
 

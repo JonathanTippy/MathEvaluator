@@ -1,4 +1,4 @@
-package com.jonathantippy.data;
+package com.jonathantippy;
 
 
 class Rational {

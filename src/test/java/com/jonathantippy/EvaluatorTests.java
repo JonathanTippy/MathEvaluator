@@ -1,4 +1,4 @@
-package com.jonathantippy.data;
+package com.jonathantippy;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import com.jonathantippy.data.Evaluator;
+import com.jonathantippy.Evaluator;
 
 class EvaluatorTests {
 
