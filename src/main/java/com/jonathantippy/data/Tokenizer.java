@@ -1,4 +1,4 @@
-package com.jonathantippy;
+package com.jonathantippy.data;
 
 import java.util.ArrayList;
 

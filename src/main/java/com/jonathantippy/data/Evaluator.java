@@ -1,4 +1,4 @@
-package com.jonathantippy;
+package com.jonathantippy.data;
 
 public class Evaluator {
 	public static Rational evaluate(String expression) {

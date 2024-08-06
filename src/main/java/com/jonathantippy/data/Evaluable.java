@@ -1,4 +1,4 @@
-package com.jonathantippy;
+package com.jonathantippy.data;
 
 abstract class Evaluable {
     public abstract Rational evaluate();

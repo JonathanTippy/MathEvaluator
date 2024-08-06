@@ -1,4 +1,4 @@
-package com.jonathantippy;
+package com.jonathantippy.view;
 
 
 import java.net.URL;
