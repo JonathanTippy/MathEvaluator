@@ -1,24 +1,24 @@
 package com.jonathantippy.data;
 
-class Fraction {
+class Rational {
     public long numerator;
     public long denomenator;
 
-    public Fraction(long numerator, long denomenator) {
+    public Rational(long numerator, long denomenator) {
         this.numerator = numerator; this.denomenator = denomenator;
     }
 
-    public Fraction(long in) {
+    public Rational(long in) {
         this.numerator = in; this.denomenator = 1;
     }
 
-    public Fraction(int in) {
+    public Rational(int in) {
         this.numerator = (long) in; this.denomenator = 1;
     }
 
-    public Fraction(String str) {
+    public Rational(String str) {
         if (str.contains(".")) {
-            String[] parts = str.split("\\.")
+            String[] parts = str.split("\\.");
             int part0 = Integer.parseInt(parts[0]);
             int part1 = Integer.parseInt(parts[1]);
 
@@ -29,7 +29,4 @@ class Fraction {
         }
     }
 
-    public add() {
-        
-    }
 }
