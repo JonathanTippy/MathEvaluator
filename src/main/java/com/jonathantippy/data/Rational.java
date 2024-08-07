@@ -3,40 +3,47 @@ package com.jonathantippy.data;
 
 class Rational {
 
-    public long numerator;
-    public long denomenator;
+    public BalloonInteger numerator = new BalloonInteger(0);
+    public BalloonInteger denomenator = new BalloonInteger(0);
 
-    public Rational(long numerator, long denomenator) {
+    public Rational(BalloonInteger numerator, BalloonInteger denomenator) {
         this.numerator = numerator; this.denomenator = denomenator;
     }
 
-    public Rational(long in) {
-        this.numerator = in; this.denomenator = 1;
+    public Rational(BalloonInteger in) {
+        this.numerator = in;
+        this.denomenator = new BalloonInteger(1);
+    }
+
+    public Rational(int numerator, int denomenator) {
+        this.numerator = new BalloonInteger(numerator); this.denomenator = new BalloonInteger(denomenator);
+    }
+
+    public Rational(long numerator, long denomenator) {
+        this.numerator = new BalloonInteger(numerator); this.denomenator = new BalloonInteger(denomenator);
     }
 
     public Rational(int in) {
-        this.numerator = (long) in; this.denomenator = 1;
+        this.numerator = new BalloonInteger(in); this.denomenator = new BalloonInteger(1);
     }
 
-    public Rational(String str) {
-        if (str.contains(".")) {
-            String[] parts = str.split("\\.");
-            int part0 = Integer.parseInt(parts[0]);
-            int part1 = Integer.parseInt(parts[1]);
-            int fac = parts[1].length();
-            this.numerator = part0 * fac + part1;
-            this.denomenator = fac;
-        } else {
-            this.numerator = Integer.parseInt(str); this.denomenator = 1;
-        }
+    public Rational(long in) {
+        this.numerator = new BalloonInteger(in); this.denomenator = new BalloonInteger(1);
     }
+
+    public Rational() {}
+
+    
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {return true;}
         if (obj == null || getClass() != obj.getClass()) {return false;}
         Rational rat = (Rational) obj;
-        return (numerator * rat.denomenator == rat.numerator * denomenator);
+        return (
+            (BalloonInteger.multiply(numerator, rat.denomenator))
+            .equals(BalloonInteger.multiply(rat.numerator, denomenator))
+            );
     }
 
     @Override
@@ -44,21 +51,38 @@ class Rational {
         return numerator + "/" + denomenator;
     }
 
+    public static Rational parseRational(String str) {
+        Rational returned = new Rational();
+        if (str.contains(".")) {
+            String[] parts = str.split("\\.");
+            BalloonInteger part0 = BalloonInteger.parseBalloonInt(parts[0]);
+            BalloonInteger part1 = BalloonInteger.parseBalloonInt(parts[1]);
+            BalloonInteger fac = new BalloonInteger(parts[1].length());
+            returned.numerator = BalloonInteger.add(BalloonInteger.multiply(part0, fac), part1);
+            returned.denomenator = fac;
+        } else {
+            returned.numerator = BalloonInteger.parseBalloonInt(str); 
+            returned.denomenator = new BalloonInteger(1);
+        }
+        return returned;
+
+    }
+
 
 
     public static Rational multiply(Rational leftTerm, Rational rightTerm) {
         return new Rational(
-            leftTerm.numerator * rightTerm.numerator
-            , leftTerm.denomenator * rightTerm.denomenator
+            BalloonInteger.multiply(leftTerm.numerator, rightTerm.numerator)
+            , BalloonInteger.multiply(leftTerm.denomenator, rightTerm.denomenator)
         );
     }
 
     public static Rational divide(Rational leftTerm, Rational rightTerm) throws ArithmeticException {
         
-        if (rightTerm.numerator != 0) {
+        if ( ! rightTerm.numerator.equals(new BalloonInteger(0))) {
             return new Rational(
-                leftTerm.numerator * rightTerm.denomenator
-                , leftTerm.denomenator * rightTerm.numerator
+                BalloonInteger.multiply(leftTerm.numerator, rightTerm.denomenator)
+                , BalloonInteger.multiply(leftTerm.denomenator, rightTerm.numerator)
             );
         } else {
             throw new ArithmeticException("Exception: Cannot divide by zero because it is undefined");
@@ -67,17 +91,23 @@ class Rational {
 
     public static Rational add(Rational leftTerm, Rational rightTerm) {
         return new Rational(
-            leftTerm.numerator * rightTerm.denomenator 
-        + rightTerm.numerator * leftTerm.denomenator
-        , leftTerm.denomenator * rightTerm.denomenator
+            BalloonInteger.add
+            (
+            BalloonInteger.multiply(leftTerm.numerator, rightTerm.denomenator) 
+            , BalloonInteger.multiply(rightTerm.numerator , leftTerm.denomenator)
+         )
+        , BalloonInteger.multiply(leftTerm.denomenator, rightTerm.denomenator)
         );
     }
 
     public static Rational subtract(Rational leftTerm, Rational rightTerm) {
         return new Rational(
-            leftTerm.numerator * rightTerm.denomenator 
-        - rightTerm.numerator * leftTerm.denomenator
-        , leftTerm.denomenator * rightTerm.denomenator
+            BalloonInteger.subtract
+            (
+            BalloonInteger.multiply(leftTerm.numerator, rightTerm.denomenator) 
+            , BalloonInteger.multiply(rightTerm.numerator , leftTerm.denomenator)
+         )
+        , BalloonInteger.multiply(leftTerm.denomenator, rightTerm.denomenator)
         );
     }
 }

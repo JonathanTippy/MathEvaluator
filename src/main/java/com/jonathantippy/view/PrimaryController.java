@@ -9,6 +9,9 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class PrimaryController {
 
+    //private Rational displayCoordX = new Rational(0);
+    //private Rational displayCoordY = new Rational(0);
+
     @FXML
     private Canvas display;
 
@@ -22,7 +25,7 @@ public class PrimaryController {
     void initialize() {
         GraphicsContext gc = display.getGraphicsContext2D();
         WritableImage writableImage = new WritableImage((int) display.getWidth(), (int) display.getHeight());
-        writableImage = RenderEngine.renderGraph(writableImage);
+        RenderEngine.renderGraph(writableImage);
         gc.drawImage(writableImage, 0, 0);
     }
 

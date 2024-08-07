@@ -4,14 +4,12 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.image.PixelWriter;
 
 public class RenderEngine {
-    public static WritableImage renderGraph(WritableImage blankImage) {
-        PixelWriter pixelWriter = blankImage.getPixelWriter();
-        for (int y = 0; y < blankImage.getHeight(); y++) {
-            for (int x = 0; x < blankImage.getWidth(); x++) {
-                // Set pixel to a color (e.g., red)
-                pixelWriter.setArgb(x, y, 0xFFFF0000); // ARGB value for red
+    public static void renderGraph(WritableImage writableImage) {
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+        for (int y = 0; y < writableImage.getHeight(); y++) {
+            for (int x = 0; x < writableImage.getWidth(); x++) {
+                pixelWriter.setArgb(x, y, 0xFF808080);
             }
         }
-        return blankImage;
     }
 }
