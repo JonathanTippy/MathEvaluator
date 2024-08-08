@@ -93,7 +93,33 @@ class EvaluatorTests {
 		assertEquals(true, exception.getMessage().contains("by zero"));
 	}
 
+	@Test
+	@DisplayName("test bint string")
+	void bint1() {
+		BalloonInteger bint = BalloonInteger.parseBalloonInt("1");
+		assertEquals("1", bint.toString());
+	}
+
+	@Test
+	@DisplayName("test bint string 2")
+	void bint2() {
+		BalloonInteger bint = BalloonInteger.parseBalloonInt("100");
+		assertEquals("100", bint.toString());
+	}
 	
+	@Test
+	@DisplayName("test bint string 3")
+	void bint3() {
+		BalloonInteger bint = BalloonInteger.parseBalloonInt("2147483647");
+		assertEquals("2147483647", bint.toString());
+	}
+
+	@Test
+	@DisplayName("test bint string 4")
+	void bint4() {
+		BalloonInteger bint = BalloonInteger.parseBalloonInt("2147483653");
+		assertEquals("2147483653", bint.toString());
+	}
 
 
 	/*

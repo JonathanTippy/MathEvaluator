@@ -16,6 +16,10 @@ public class BalloonInteger {
 
     public BalloonInteger() {}
 
+    public BalloonInteger(BalloonInteger other) {
+        integerList = other.integerList;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {return true;}
@@ -27,11 +31,12 @@ public class BalloonInteger {
     @Override
     public String toString() {
         //TODO: make gooder
-        if (integerList.size() < 2) {
-            return "" + integerList.get(0);
-        } else {
-            return (integerList.size() - 1) + " * " + Integer.MAX_VALUE + " + " + integerList.get(0);
+        String returned = "";
+        returned+=integerList.get(0);
+        for (int i = 1; i<integerList.size();i++) {
+            returned+=(" and " + integerList.get(i));
         }
+        return returned;
     }
 
     public int get(int index) {
@@ -39,6 +44,21 @@ public class BalloonInteger {
             return integerList.get(index);
         } else {
             return 0;
+        }
+    }
+
+    public void set(int index, int value) {
+        if (integerList.size() > index) {
+            integerList.set(index, value);
+        } else {
+            this.inflate(index);
+            integerList.set(index, value);
+        }
+    }
+
+    public void inflate(int size) {
+        while (integerList.size() < size) {
+            integerList.add(0);
         }
     }
 
@@ -52,11 +72,12 @@ public class BalloonInteger {
 
     public static BalloonInteger parseBalloonInt(String parsing) {
         BalloonInteger ten = new BalloonInteger(10);
-        BalloonInteger returned = new BalloonInteger();
+        BalloonInteger returned = new BalloonInteger(0);
         for (int i = 0; i < parsing.length(); i++) {
+            int tenIndex = (parsing.length() - 1) - i;
             int localDigitValue = Integer.parseInt(parsing.substring(i, i+1));
             BalloonInteger digitValue = new BalloonInteger(localDigitValue);
-            for (int j = 0; j<i; j++) {
+            for (int j = 0; j<tenIndex; j++) {
                 digitValue = BalloonInteger.multiply(digitValue, ten);
             }
             returned = BalloonInteger.add(returned, digitValue);
@@ -66,6 +87,9 @@ public class BalloonInteger {
 
 
     public static BalloonInteger add(BalloonInteger leftTerm, BalloonInteger rightTerm) {
+
+        System.out.println("BEGIN ADD");
+        
         BalloonInteger returned = new BalloonInteger();
 
         int longerLength = 0;
@@ -76,16 +100,20 @@ public class BalloonInteger {
         }
 
         int carryTerm = 0;
-        for (int i = 0; i<longerLength;i++) {
-            long localSum = (long) (leftTerm.get(i)) + (long) (rightTerm.get(i)) + (long) carryTerm;
-            returned.add((int) (localSum & 0xFFFFFFFFL));
-            carryTerm = (int) (localSum >> 32);
+        long localSum;
+        for (int i = 0; i < longerLength || carryTerm != 0; i++) {
+            localSum = (long) (leftTerm.get(i)) + (long) (rightTerm.get(i)) + (long) carryTerm;
+            returned.add((int) (localSum & 2147483647L));
+            carryTerm = (int) (localSum >> 31);
         }
 
+        System.out.println("END ADD");
         return returned;
     }
 
     public static BalloonInteger subtract(BalloonInteger leftTerm, BalloonInteger rightTerm) {
+
+        System.out.println("BEGIN SUBTRACT");
         BalloonInteger returned = new BalloonInteger();
 
         int longerLength = 0;
@@ -96,16 +124,21 @@ public class BalloonInteger {
         }
 
         int carryTerm = 0;
-        for (int i = 0; i<longerLength;i++) {
-            long localDifference = (long) (leftTerm.get(i)) - (long) (rightTerm.get(i)) + (long) carryTerm;
-            returned.add((int) (localDifference & 0xFFFFFFFFL));
-            carryTerm = (int) (localDifference >> 32);
+        long localDifference;
+        for (int i = 0; i < longerLength || carryTerm != 0; i++) {
+            localDifference = (long) (leftTerm.get(i)) - (long) (rightTerm.get(i)) + (long) carryTerm;
+            returned.add((int) (localDifference & 2147483647L));
+            carryTerm = (int) (localDifference >> 31);
         }
+
+        System.out.println("END SUBTRACT");
 
         return returned;
     }
 
     public static BalloonInteger multiply(BalloonInteger leftTerm, BalloonInteger rightTerm) {
+
+        System.out.println("BEGIN MULTIPLY");
         BalloonInteger returned = new BalloonInteger();
 
         int longerLength = 0;
@@ -116,12 +149,44 @@ public class BalloonInteger {
         }
 
         int carryTerm = 0;
-        for (int i = 0; i<longerLength;i++) {
-            long localProduct = (long) (leftTerm.get(i)) * (long) (rightTerm.get(i)) + (long) carryTerm;
-            returned.add((int) (localProduct & 0xFFFFFFFFL));
-            carryTerm = (int) (localProduct >> 32);
+        long localProduct;
+        for (int i = 0; i < longerLength || carryTerm != 0; i++) {
+            localProduct = (long) (leftTerm.get(i)) * (long) (rightTerm.get(i)) + (long) carryTerm;
+            returned.add((int) (localProduct & 2147483647L));
+            carryTerm = (int) (localProduct >> 31);
         }
 
+        System.out.println("END MULTIPLY");
+
         return returned;
+    }
+
+    public static DivisionAnswer divideByTen(BalloonInteger input) {
+        BalloonInteger returned = new BalloonInteger();
+        BalloonInteger remaining = new BalloonInteger(input);
+
+        long localDividend;
+        long localQuotient;
+    
+        for (int i = input.size()-1; i>=0; i = i-1) {
+            localDividend = ((long) (remaining.get(i + 1) << 32)) + ((long) (remaining.get(i)));
+            localQuotient = localDividend / 10;
+            returned.add((int) localQuotient);
+            remaining = BalloonInteger.subtract(
+                remaining
+                , new BalloonInteger(localQuotient * 10)
+            );
+        }
+
+        return new DivisionAnswer(returned, remaining);
+    }
+}
+
+class DivisionAnswer {
+    public BalloonInteger answer;
+    public BalloonInteger remainder;
+
+    public DivisionAnswer(BalloonInteger answer, BalloonInteger remainder) {
+        this.answer = answer; this.remainder = remainder;
     }
 }
