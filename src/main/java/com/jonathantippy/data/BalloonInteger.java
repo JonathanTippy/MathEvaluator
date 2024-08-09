@@ -1,3 +1,16 @@
+/*
+    SHELFED
+    thoughts:
+    I was working on the add function and I know now how to do the carrying and 2s compliment bit separation.
+    you xor the 2scomp of the two inputs and then xor that with the carry out for the new 2s compliment
+    and you check nor the two 2sconps and and that with the carry out for the simple overflow carry out.
+    Notice this looks much like a full adder with a little modification.
+    Also I was going to switch everything over to arrays like int[] instead of arraylists.
+    Also multiplication needed rewriting. Dad said much of this is academic work which I could get from an llm.
+    To solve the problem of these balloons getting too big, 
+    shift both the numerator and denomenator right by the same amount to drop some precision.
+*/
+
 package com.jonathantippy.data;
 
 import java.util.ArrayList;
