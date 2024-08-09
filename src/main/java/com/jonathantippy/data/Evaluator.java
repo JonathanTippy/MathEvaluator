@@ -1,9 +1,9 @@
 package com.jonathantippy.data;
 
 public class Evaluator {
-	public static Rational evaluate(String expression) {
+	public static double evaluate(String expression) {
 		Evaluable evaluableExpression = 
-			Tokenizer.tokenize(expression.replaceAll("\\s+", ""));
+			Tokenizer.tokenize(expression);
 		return evaluableExpression.evaluate();
 	}
 }

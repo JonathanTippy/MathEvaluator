@@ -9,6 +9,8 @@
     Also multiplication needed rewriting. Dad said much of this is academic work which I could get from an llm.
     To solve the problem of these balloons getting too big, 
     shift both the numerator and denomenator right by the same amount to drop some precision.
+    The standard ignores the two's compliment bits so you can't use Integer.toString on it. 
+    also this may break long -> int conversion so it requires an extra step.
 */
 
 package com.jonathantippy.data;

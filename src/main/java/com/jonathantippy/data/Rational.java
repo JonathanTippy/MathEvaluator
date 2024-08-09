@@ -1,7 +1,9 @@
 /*
-SHELFED
-thoughts:
-
+    SHELFED
+    thoughts:
+    To solve the problem of these balloons getting too big, 
+    shift both the numerator and denomenator right by the same amount to drop some precision.
+    These will help a LOT with testing for equality
 */
 
 

@@ -1,17 +1,20 @@
 package com.jonathantippy.data;
 
 abstract class Evaluable {
-    public abstract Rational evaluate();
+    public abstract double evaluate();
+    public abstract String detokenize();
 }
 
 abstract class UnaryEvaluable extends Evaluable {
-    public abstract Rational evaluate();
+    public abstract double evaluate();
+    public abstract String detokenize();
 
     public Evaluable term;
 }
 
 abstract class BinaryEvaluable extends Evaluable {
-    public abstract Rational evaluate();
+    public abstract double evaluate();
+    public abstract String detokenize();
 
     public Evaluable leftTerm;
     public Evaluable rightTerm;
@@ -19,14 +22,18 @@ abstract class BinaryEvaluable extends Evaluable {
 
 class Value extends Evaluable {
 
-    public Rational value;
+    public double value;
 
-    public Value(Rational value) {
+    public Value(double value) {
         this.value = value;
     }
 
-    public Rational evaluate() {
+    public final double evaluate() {
         return value;
+    }
+
+    public final String detokenize() {
+        return Double.toString(value);
     }
 
 }
@@ -40,8 +47,12 @@ class Plus extends BinaryEvaluable {
         this.leftTerm = leftTerm; this.rightTerm = rightTerm;
     }
 
-    public Rational evaluate() {
-        return Rational.add(leftTerm.evaluate(), rightTerm.evaluate());
+    public final double evaluate() {
+        return leftTerm.evaluate() + rightTerm.evaluate();
+    }
+
+    public final String detokenize() {
+        return leftTerm.detokenize() + "+" + rightTerm.detokenize();
     }
 
 }
@@ -55,8 +66,12 @@ class Minus extends BinaryEvaluable {
         this.leftTerm = leftTerm; this.rightTerm = rightTerm;
     }
 
-    public Rational evaluate() {
-        return Rational.subtract(leftTerm.evaluate(), rightTerm.evaluate());
+    public final double evaluate() {
+        return leftTerm.evaluate() - rightTerm.evaluate();
+    }
+
+    public final String detokenize() {
+        return leftTerm.detokenize() + "-" + rightTerm.detokenize();
     }
 
 }
@@ -70,8 +85,12 @@ class Times extends BinaryEvaluable {
         this.leftTerm = leftTerm; this.rightTerm = rightTerm;
     }
 
-    public Rational evaluate() {
-        return Rational.multiply(leftTerm.evaluate(), rightTerm.evaluate());
+    public final double evaluate() {
+        return leftTerm.evaluate() * rightTerm.evaluate();
+    }
+
+    public final String detokenize() {
+        return leftTerm.detokenize() + "*" + rightTerm.detokenize();
     }
 
 }
@@ -85,8 +104,12 @@ class Divide extends BinaryEvaluable {
         this.leftTerm = leftTerm; this.rightTerm = rightTerm;
     }
 
-    public Rational evaluate() {
-        return Rational.divide(leftTerm.evaluate(), rightTerm.evaluate());
+    public final double evaluate() {
+        return leftTerm.evaluate() / rightTerm.evaluate();
+    }
+
+    public final String detokenize() {
+        return leftTerm.detokenize() + "/" + rightTerm.detokenize();
     }
 
 }
