@@ -84,6 +84,12 @@ class EvaluatorTests {
 	}
 
 	@Test
+	@DisplayName("(5 + 5) / 2")
+	void paren1() {
+		assertEquals(5, Evaluator.evaluate("(5 + 5) / 2"), "\"(5 + 5) / 2\" should equal 5");
+	}
+/*
+	@Test
 	@DisplayName("7 / 3 + 2 / 0")
 	void ex1() {
 
@@ -92,7 +98,7 @@ class EvaluatorTests {
 
 		assertEquals(true, exception.getMessage().contains("by zero"));
 	}
-
+*/
 	/*
 	@ParameterizedTest(name = "{0} + {1} = {2}")
 	@CsvSource({

@@ -7,7 +7,7 @@ public class Tokenizer {
     public static String preProcess(String expression) {
         String returned = "";
         returned = expression.replaceAll("\\s+", "");
-        while (returned)
+        return returned;
     }
 
     public static Evaluable tokenize(String expression) {
@@ -15,7 +15,7 @@ public class Tokenizer {
         String message = "";
 
         
-        preProcessedExpression = preProcess(expression);
+        String preProcessedExpression = preProcess(expression);
         message+=("expression: " + preProcessedExpression + "\n");
         Evaluable tree = RecursiveDescentTokenize(preProcessedExpression);
         String detokenizedTree = tree.detokenize();
@@ -28,9 +28,10 @@ public class Tokenizer {
 
     public static Evaluable RecursiveDescentTokenize(String expression) {
 
-        if (expression.contains("+")) {
+        if (expression.contains("+") || expression.contains("-")) {
 
             int plusPos = expression.lastIndexOf("+");
+            int minusPos = expression.lastIndexOf("")
 
             String part0 = expression.substring(0, plusPos);
             String part1 = expression.substring(plusPos + 1, expression.length());
