@@ -28,12 +28,12 @@ public class Tokenizer {
 
     public static final Evaluable RecursiveDescentTokenize(String expression) {
 
-        String accessablePart = getContentOutsideParens(expression);
+        String maskedExpression = maskExpression(expression);
 
-        if (accessablePart.contains("+") || accessablePart.contains("-")) {
+        if (maskedExpression.contains("+") || maskedExpression.contains("-")) {
 
-            int plusPos = accessablePart.lastIndexOf("+");
-            int minusPos = accessablePart.lastIndexOf("-");
+            int plusPos = maskedExpression.lastIndexOf("+");
+            int minusPos = maskedExpression.lastIndexOf("-");
 
             int pos = Math.max(plusPos, minusPos);
 
@@ -46,10 +46,10 @@ public class Tokenizer {
                 return new Minus(RecursiveDescentTokenize(part0), RecursiveDescentTokenize(part1));
             }
             
-        } else if (accessablePart.contains("*") || accessablePart.contains("/")) {
+        } else if (maskedExpression.contains("*") || maskedExpression.contains("/")) {
 
-            int timesPos = accessablePart.lastIndexOf("*");
-            int dividePos = accessablePart.lastIndexOf("/");
+            int timesPos = maskedExpression.lastIndexOf("*");
+            int dividePos = maskedExpression.lastIndexOf("/");
 
             int pos = Math.max(timesPos, dividePos);
 
@@ -69,13 +69,16 @@ public class Tokenizer {
             }
             String contents = expression.substring(1, expression.length()-1);
             return new Parenthesis(RecursiveDescentTokenize(contents));
-        } else {
-            return new Value(Double.parseDouble(expression));
-        }
-
+        } else  if (expression.contains("-")) {
+            return new Negative(RecursiveDescentTokenize(expression.substring(1, expression.length())));
+        } 
+        return new Value(Double.parseDouble(expression));
     }
 
-    public static final String getContentOutsideParens(String expression) {
+    public static final String maskExpression(String expression) {
+
+
+        String returned = "";
 
         if (expression.contains("(")) {
             String searchArea = "";
@@ -92,10 +95,33 @@ public class Tokenizer {
 
             searchArea += expression.substring(closingPos+1, expression.length());
 
-            return searchArea;
+            returned = searchArea;
         } else {
-            return expression;
+            returned = expression;
         }
+
+        String returned2 = "";
+
+        for (int i =0; i<returned.length(); i++) {
+            if (returned.substring(i, i+1).equals("-")) {
+                if (i == 0) {
+                    returned2+=" ";
+                    continue;
+                } else if (
+                    (!returned.substring(i-1, i).equals(")"))
+                    && (!returned.substring(i-1, i).matches("\\d"))
+                    ) {
+                        returned2+=" ";
+                        continue;
+                    }
+            }
+            returned2+=returned.substring(i, i+1);
+        }
+
+
+
+        return returned2;
+        
 
         
     }

@@ -94,6 +94,20 @@ class EvaluatorTests {
 	void paren2() {
 		assertEquals(50, Evaluator.evaluate("(5 * (5 + 5))"), "\"(5 * (5 + 5))\" should equal 50");
 	}
+
+	@Test
+	@DisplayName("-5 + -6")
+	void unaryMinus1() {
+		assertEquals(-11, Evaluator.evaluate("-5 + -6"), "\"-5 + -6\" should equal -11");
+	}
+
+	@Test
+	@DisplayName("----7")
+	void unaryMinus2() {
+		assertEquals(7, Evaluator.evaluate("----7"), "\"----7\" should equal 7");
+	}
+
+
 /*
 	@Test
 	@DisplayName("7 / 3 + 2 / 0")

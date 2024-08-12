@@ -129,3 +129,19 @@ class Parenthesis extends UnaryEvaluable {
         return "(" + term.detokenize() + ")";
     }
 }
+
+class Negative extends UnaryEvaluable {
+    public Evaluable term;
+
+    public Negative(Evaluable term) {
+        this.term = term;
+    }
+
+    public double evaluate() {
+        return (-term.evaluate());
+    }
+
+    public final String detokenize() {
+        return "-" + term.detokenize();
+    }
+}
