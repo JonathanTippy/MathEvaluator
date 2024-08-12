@@ -113,3 +113,19 @@ class Divide extends BinaryEvaluable {
     }
 
 }
+
+class Parenthesis extends UnaryEvaluable {
+    public Evaluable term;
+
+    public Parenthesis(Evaluable term) {
+        this.term = term;
+    }
+
+    public final double evaluate() {
+        return term.evaluate();
+    }
+
+    public final String detokenize() {
+        return "(" + term.detokenize() + ")";
+    }
+}

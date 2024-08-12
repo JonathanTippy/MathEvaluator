@@ -88,6 +88,12 @@ class EvaluatorTests {
 	void paren1() {
 		assertEquals(5, Evaluator.evaluate("(5 + 5) / 2"), "\"(5 + 5) / 2\" should equal 5");
 	}
+
+	@Test
+	@DisplayName("(5 * (5 + 5))")
+	void paren2() {
+		assertEquals(50, Evaluator.evaluate("(5 * (5 + 5))"), "\"(5 * (5 + 5))\" should equal 50");
+	}
 /*
 	@Test
 	@DisplayName("7 / 3 + 2 / 0")
