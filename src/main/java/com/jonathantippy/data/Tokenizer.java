@@ -4,11 +4,18 @@ import java.util.ArrayList;
 
 public class Tokenizer {
 
+
+
     public static final String preProcess(String expression) {
         String returned = "";
         returned = expression.replaceAll("\\s+", "");
         return returned;
     }
+
+
+
+
+
 
     public static final Evaluable tokenize(String expression) {
 
@@ -16,17 +23,27 @@ public class Tokenizer {
 
         
         String preProcessedExpression = preProcess(expression);
-        message+=("expression: " + preProcessedExpression + "\n");
+        //message+=("expression: " + preProcessedExpression + "\n");
         Evaluable tree = RecursiveDescentTokenize(preProcessedExpression);
         String detokenizedTree = tree.detokenize();
-        message+=("detokenized tree: " + detokenizedTree);
-        System.out.println(message);
+        //message+=("detokenized tree: " + detokenizedTree);
+        //System.out.println(message);
         return tree;
 
 
     }
 
+
+
+
+
+
     public static final Evaluable RecursiveDescentTokenize(String expression) {
+
+        String message = "";
+
+        message+="Expression:";
+        message+=expression;
 
         String maskedExpression = maskExpression(expression);
 
@@ -62,21 +79,25 @@ public class Tokenizer {
                 return new Divide(RecursiveDescentTokenize(part0), RecursiveDescentTokenize(part1));
             }
             
+        } else if (expression.contains("-")) {
+            return new Negative(RecursiveDescentTokenize(expression.substring(1, expression.length())));
         } else if (expression.contains("(")) {
             int length = expression.length();
-            if (expression.substring(length - 1, length) == ")") {;} else {
+            if (expression.substring(length - 1, length).equals(")")) {;} else {
                 System.out.println("ERROR: mismatched parenthises or unrecognized characters");
+                System.out.println(message);
             }
             String contents = expression.substring(1, expression.length()-1);
             return new Parenthesis(RecursiveDescentTokenize(contents));
-        } else  if (expression.contains("-")) {
-            return new Negative(RecursiveDescentTokenize(expression.substring(1, expression.length())));
         } 
         return new Value(Double.parseDouble(expression));
     }
 
-    public static final String maskExpression(String expression) {
 
+
+
+
+    public static final String maskExpression(String expression) {
 
         String returned = "";
 
@@ -126,6 +147,10 @@ public class Tokenizer {
         
     }
 
+
+
+
+
     public static final int posOfClosingParen(String expression, int openingPos) {
         int parenParity = 1;
         int parenSearchIndex = openingPos;
@@ -146,6 +171,11 @@ public class Tokenizer {
     }
 
 }
+
+
+
+
+
 
 class EmbeddedEvaluable {
     private int index;

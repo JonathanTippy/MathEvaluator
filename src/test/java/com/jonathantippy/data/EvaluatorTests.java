@@ -107,6 +107,12 @@ class EvaluatorTests {
 		assertEquals(7, Evaluator.evaluate("----7"), "\"----7\" should equal 7");
 	}
 
+	@Test
+	@DisplayName("-(5+2)")
+	void negateParens() {
+		assertEquals(-7, Evaluator.evaluate("-(5+2)"), "\"-(5+2)\" should equal -7");
+	}
+
 
 /*
 	@Test

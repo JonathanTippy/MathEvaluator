@@ -1,5 +1,27 @@
 package com.jonathantippy.data;
 
+abstract class BooleanEvaluable {
+    public abstract boolean evaluate();
+    public abstract String detokenize();
+}
+
+abstract class UnaryBooleanEvaluable extends BooleanEvaluable {
+    public abstract boolean evaluate();
+    public abstract String detokenize();
+
+    public Evaluable term;
+}
+
+abstract class BinaryBooleanEvaluable extends BooleanEvaluable {
+    public abstract boolean evaluate();
+    public abstract String detokenize();
+
+    public Evaluable leftTerm;
+    public Evaluable rightTerm;
+}
+
+
+
 abstract class Evaluable {
     public abstract double evaluate();
     public abstract String detokenize();
