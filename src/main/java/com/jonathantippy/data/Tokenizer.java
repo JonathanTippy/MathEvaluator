@@ -34,6 +34,20 @@ public class Tokenizer {
     }
 
 
+    public static final ComparisonEvaluable tokenizeComparison(String expression) {
+        String preProcessedExpression = preProcess(expression);
+        String[] expressionsections = preProcessedExpression.split("=");
+
+        ArrayList<Evaluable> evaluables = new ArrayList<Evaluable>();
+        for (String section: expressionsections) {
+            Evaluable partTree = RecursiveDescentTokenize(section);
+            evaluables.add(partTree);
+        }
+        Evaluable[] stuffs = evaluables.toArray(new Evaluable[0]);
+        System.out.println("equals evauables:" + stuffs);
+        return new Equals(stuffs);
+    }
+
 
 
 
@@ -171,30 +185,3 @@ public class Tokenizer {
     }
 
 }
-
-
-
-
-
-
-class EmbeddedEvaluable {
-    private int index;
-    private Evaluable evaluable;
-
-    public EmbeddedEvaluable(int index, Evaluable evaluable) {
-        this.index = index; this.evaluable = evaluable;
-    }
-
-    public final int getIndex() {
-        return index;
-    }
-
-    public final Evaluable getEvaluable() {
-        return evaluable;
-    }
-
-    public final void setIndex(int index) {
-        this.index = index;
-    }
-}
-

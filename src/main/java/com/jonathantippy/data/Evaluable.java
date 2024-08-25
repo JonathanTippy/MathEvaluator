@@ -1,26 +1,55 @@
 package com.jonathantippy.data;
 
-abstract class BooleanEvaluable {
-    public abstract boolean evaluate();
-    public abstract String detokenize();
-}
-
-abstract class UnaryBooleanEvaluable extends BooleanEvaluable {
+abstract class ComparisonEvaluable {
     public abstract boolean evaluate();
     public abstract String detokenize();
 
-    public Evaluable term;
+    public Evaluable[] expressions;
+
+    public ComparisonEvaluable(Evaluable... expressions) {this.expressions = expressions;}
 }
 
-abstract class BinaryBooleanEvaluable extends BooleanEvaluable {
-    public abstract boolean evaluate();
-    public abstract String detokenize();
+class Equals extends ComparisonEvaluable {
+    public Equals(Evaluable... expressions) {
+        super(expressions);
+    }
 
-    public Evaluable leftTerm;
-    public Evaluable rightTerm;
+    public boolean evaluate() {
+	
+	int count = 0;
+	double previousResult = 0;
+	boolean equal = true;
+        for (Evaluable expression : expressions) {
+	    double result = expression.evaluate();
+	    if (count > 0) {
+                equal = (equal && result == previousResult);
+	    }
+	    previousResult = result;
+	    count++;
+        }
+	return equal;
+    }
+
+    public String detokenize() {
+        String returned = "";
+	    for (Evaluable expression : expressions) {
+            returned+=expression.detokenize();
+            returned+="=";
+	    }	
+        returned = returned.substring(0, returned.length()-2);
+        return returned;
+    }
 }
 
+class GreaterThan extends ComparisonEvaluable {
+    public Equals (Evaluable... expressions) {
+        super(expressions);
 
+        public boolean evaluate() {
+            
+        }
+    }
+}
 
 abstract class Evaluable {
     public abstract double evaluate();

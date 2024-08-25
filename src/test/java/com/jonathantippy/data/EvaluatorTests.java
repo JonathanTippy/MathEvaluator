@@ -40,7 +40,7 @@ class EvaluatorTests {
 	void order1() {
 		assertEquals(17, Evaluator.evaluate("2 + 7 * 2 + 1"), "\"2 + 7 * 2 + 1\" should equal 17");
 	}
-	
+
 	@Test
 	@DisplayName("2 + 7 * 2 + 1 * 8")
 	void order2() {
@@ -74,13 +74,13 @@ class EvaluatorTests {
 	@Test
 	@DisplayName("5 / 2")
 	void break1() {
-		assertEquals(5.0/2.0, Evaluator.evaluate("5 / 2"), "\"5 / 2\" should equal 5/2");
+		assertEquals(5.0 / 2.0, Evaluator.evaluate("5 / 2"), "\"5 / 2\" should equal 5/2");
 	}
 
 	@Test
 	@DisplayName("7 / 3 + 2 / 5")
 	void break2() {
-		assertEquals(41.0/15.0, Evaluator.evaluate("7 / 3 + 2 / 5"), "\"7 / 3 + 2 / 5\" should equal 41/15");
+		assertEquals(41.0 / 15.0, Evaluator.evaluate("7 / 3 + 2 / 5"), "\"7 / 3 + 2 / 5\" should equal 41/15");
 	}
 
 	@Test
@@ -112,6 +112,24 @@ class EvaluatorTests {
 	void negateParens() {
 		assertEquals(-7, Evaluator.evaluate("-(5+2)"), "\"-(5+2)\" should equal -7");
 	}
+
+	@Test
+	@DisplayName("5-3=1+1")
+	void equals1() {
+		assertEquals(true, Evaluator.evaluateComparison("5-3=1+1"), "\"5-3=1+1\" should be true");
+	}
+
+	@Test
+	@DisplayName("5-3 = 7-5 = 2*1+0")
+	void equalslong1() {
+        assertEquals(true, Evaluator.evaluateComparison("5-3 = 7-5 = 2*1+0"), "\"5-3 = 7-5 = 2*1+0\" should be true");
+    }
+
+    @Test
+    @DisplayName("5>2>1")
+    void gt1() {
+        assertEquals(true, Evaluator.evaluateComparison("5>2>1"), "\"5>2>1\" should be true");
+    }
 
 
 /*
