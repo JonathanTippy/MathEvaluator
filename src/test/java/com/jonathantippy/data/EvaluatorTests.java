@@ -124,13 +124,13 @@ class EvaluatorTests {
 	void equalslong1() {
         assertEquals(true, Evaluator.evaluateComparison("5-3 = 7-5 = 2*1+0"), "\"5-3 = 7-5 = 2*1+0\" should be true");
     }
-
+/*
     @Test
     @DisplayName("5>2>1")
     void gt1() {
         assertEquals(true, Evaluator.evaluateComparison("5>2>1"), "\"5>2>1\" should be true");
     }
-
+*/
 
 /*
 	@Test

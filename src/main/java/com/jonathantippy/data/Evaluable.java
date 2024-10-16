@@ -40,7 +40,7 @@ class Equals extends ComparisonEvaluable {
         return returned;
     }
 }
-
+/*
 class GreaterThan extends ComparisonEvaluable {
     public Equals (Evaluable... expressions) {
         super(expressions);
@@ -50,7 +50,7 @@ class GreaterThan extends ComparisonEvaluable {
         }
     }
 }
-
+*/
 abstract class Evaluable {
     public abstract double evaluate();
     public abstract String detokenize();

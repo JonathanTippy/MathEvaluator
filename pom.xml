@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.jonathantippy</groupId>
-	<artifactId>desksmos</artifactId>
+	<artifactId>MathEvaluator</artifactId>
 	<version>0.0.1</version>
 
 	<properties>
