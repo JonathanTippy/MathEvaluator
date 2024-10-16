@@ -1,4 +1,4 @@
-# Desmos clone
+# Math Evaluator
 
 Status: working on calculator functionality.
 
