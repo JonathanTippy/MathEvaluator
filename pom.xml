@@ -43,6 +43,11 @@
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+		<dependency>
+			<groupId>com.jonathantippy.RationalRange</groupId>
+			<artifactId>rational-range</artifactId>
+			<version>0.0.3-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
