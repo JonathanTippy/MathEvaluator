@@ -1,4 +1,4 @@
-package com.jonathantippy.data;
+package com.jonathantippy.MathEvaluator;
 
 public class Evaluator {
 	public static double evaluate(String expression) {

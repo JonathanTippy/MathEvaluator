@@ -1,4 +1,4 @@
-package com.jonathantippy.data;
+package com.jonathantippy.MathEvaluator;
 
 abstract class ComparisonEvaluable {
     public abstract boolean evaluate();
@@ -22,7 +22,7 @@ class Equals extends ComparisonEvaluable {
         for (Evaluable expression : expressions) {
 	    double result = expression.evaluate();
 	    if (count > 0) {
-                equal = (equal && result == previousResult);
+                equal = (equal && result==previousResult);
 	    }
 	    previousResult = result;
 	    count++;
@@ -84,7 +84,7 @@ class Value extends Evaluable {
     }
 
     public final String detokenize() {
-        return Double.toString(value);
+        return "" + value;
     }
 
 }
@@ -99,7 +99,7 @@ class Plus extends BinaryEvaluable {
     }
 
     public final double evaluate() {
-        return leftTerm.evaluate() + rightTerm.evaluate();
+        return leftTerm.evaluate() +rightTerm.evaluate();
     }
 
     public final String detokenize() {
@@ -118,7 +118,7 @@ class Minus extends BinaryEvaluable {
     }
 
     public final double evaluate() {
-        return leftTerm.evaluate() - rightTerm.evaluate();
+        return leftTerm.evaluate()-rightTerm.evaluate();
     }
 
     public final String detokenize() {
@@ -137,7 +137,7 @@ class Times extends BinaryEvaluable {
     }
 
     public final double evaluate() {
-        return leftTerm.evaluate() * rightTerm.evaluate();
+        return leftTerm.evaluate()*rightTerm.evaluate();
     }
 
     public final String detokenize() {
@@ -156,7 +156,7 @@ class Divide extends BinaryEvaluable {
     }
 
     public final double evaluate() {
-        return leftTerm.evaluate() / rightTerm.evaluate();
+        return leftTerm.evaluate()/rightTerm.evaluate();
     }
 
     public final String detokenize() {

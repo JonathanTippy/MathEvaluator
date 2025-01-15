@@ -1,4 +1,4 @@
-package com.jonathantippy.data;
+package com.jonathantippy.MathEvaluator;
 
 import java.util.ArrayList;
 

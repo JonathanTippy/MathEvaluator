@@ -34,16 +34,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-      		<groupId>org.openjfx</groupId>
-      		<artifactId>javafx-controls</artifactId>
-      		<version>${javafx.version}</version>
-    	</dependency>
-		<dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-		<dependency>
 			<groupId>com.jonathantippy.RationalRange</groupId>
 			<artifactId>rational-range</artifactId>
 			<version>0.0.3-SNAPSHOT</version>
@@ -69,15 +59,6 @@
                     </execution>
                 </executions>
             </plugin>
-			 <plugin>
-        		<groupId>org.openjfx</groupId>
-        		<artifactId>javafx-maven-plugin</artifactId>
-        		<version>${javafx.maven.plugin.version}</version>
-        		<configuration>
-          			<mainClass>com.jonathantippy.view.App</mainClass>
-        		</configuration>
-      		</plugin>
-
 		</plugins>
 	</build>
 
